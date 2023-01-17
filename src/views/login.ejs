@@ -6,13 +6,13 @@
         <div class="col-lg-8 my-3">
             <h1 class="text-center">Criar conta ou Entrar</h1>
             <p class="text-center lead">Faça login ou crie sua conta</p>
-
+            <%- include('includes/messages'); %>
             <div class="row my-4">
                 <div class="col-lg m-3">
                     <h4>Crie seu Cadastro</h4>
                     <p class="my-3">Se você ainda não tem uma conta, faça seu cadastro abaixo:</p>
                     <form action="/login/register" method="POST">
-                        <input type="hidden" name="_csrf" value="<% csrfToken %>">
+                        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                         <div class="form-group">
                           <label for="emailLogin">Email</label>
                           <input type="email" class="form-control" id="emailCadastro" name="email" placeholder="Digite seu email">
@@ -28,7 +28,7 @@
                     <h4>Faça seu Login</h4>
                     <p class="my-3">Se você já tem uma conta, então faça seu login abaixo:</p>
                     <form action="/login/login" method="POST">
-                        <input type="hidden" name="_csrf" value="<% csrfToken %>">
+                        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                         <div class="form-group">
                           <label for="emailLogin">Email</label>
                           <input type="email" class="form-control" name="email" id="emailLogin" placeholder="Digite seu email">
