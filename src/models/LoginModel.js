@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { clearCustomQueryHandlers } = require('puppeteer');
 const validator = require('validator')
+const bcryptjs = require('bcryptjs')
 
 const LoginSchema = new mongoose.Schema({
     email: { type: String, required: true },
@@ -16,13 +16,45 @@ class Login {
       this.user = null;
     }
 
+    async login() {
+      this.valida();
+      if(this.errors.length > 0) return;
+
+      this.user = await LoginModel.findOne({email: this.body.email})
+
+      if (!this.user) {
+        this.errors.push("Esse email não esta cadastrado no sistema.")
+        return
+    }
+
+      if (!bcryptjs.compareSync(this.body.senha, this.user.senha)) {
+        this.errors.push("Senha inválida")
+        this.user = null
+        return
+      }
+
+    }
+
+
     async register() {
         this.valida();
         if(this.errors.length > 0) return;
+
+        await this.userExists()
+
+        if(this.errors.length > 0) return;
+
+        const salt = bcryptjs.genSaltSync()
+        this.body.senha = bcryptjs.hashSync(this.body.senha, salt)
         
-        try {
-            this.user = await LoginModel.create(this.body);
-        } catch(e) {console.log(e)}
+        this.user = await LoginModel.create(this.body);
+
+    }
+
+    async userExists() {
+      this.user = await LoginModel.findOne({email: this.body.email})
+
+      if (this.user) this.errors.push("Email já cadastrado no sistema.")
 
     }
 
