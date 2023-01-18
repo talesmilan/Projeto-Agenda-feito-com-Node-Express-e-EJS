@@ -11,15 +11,17 @@
                 <div class="col-lg m-3">
                     <h4>Crie seu Cadastro</h4>
                     <p class="my-3">Se você ainda não tem uma conta, faça seu cadastro abaixo:</p>
-                    <form action="/login/register" method="POST">
+                    <form class="form-cadastro" action="/login/register" method="POST">
                         <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                         <div class="form-group">
                           <label for="emailLogin">Email</label>
                           <input type="email" class="form-control" id="emailCadastro" name="email" placeholder="Digite seu email">
+                          <div class="cadastro-email-erro my-1 small text-danger"></div>
                         </div>
                         <div class="form-group">
                           <label class="my-2" for="senhaCadastro">Crie uma senha</label>
                           <input type="password" class="form-control" id="senhaCadastro" name="senha" placeholder="Crie uma senha">
+                          <div class="cadastro-senha-erro my-1 small text-danger"></div>
                         </div>
                         <button type="submit" class="btn btn-primary my-3">Cadastrar</button>
                       </form>
@@ -27,15 +29,17 @@
                 <div class="col-lg m-3">
                     <h4>Faça seu Login</h4>
                     <p class="my-3">Se você já tem uma conta, então faça seu login abaixo:</p>
-                    <form action="/login/login" method="POST">
+                    <form class="form-login" action="/login/login" method="POST">
                         <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                         <div class="form-group">
                           <label for="emailLogin">Email</label>
                           <input type="email" class="form-control" name="email" id="emailLogin" placeholder="Digite seu email">
+                          <div class="login-email-erro my-1 small text-danger" ></div>
                         </div>
                         <div class="form-group">
                           <label for="senhaLogin" class="my-2">Senha</label>
                           <input type="password" class="form-control" name="senha" id="senhaLogin" placeholder="Digite sua senha">
+                          <div class="login-senha-erro my-1 small text-danger"></div>
                         </div>
                         <button type="submit" class="btn btn-primary my-3">Entrar</button>
                       </form>
